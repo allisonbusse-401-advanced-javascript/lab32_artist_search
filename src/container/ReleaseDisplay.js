@@ -1,76 +1,55 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { fetchReleases } from '../services/api-call';
 import Releases from '../components/Releases';
 import styles from './ReleaseDisplay.css';
 
-export default class ReleaseDisplay extends Component {
-  state = {
-    releases: [],
-    offset: 0,
-    count: 0,
-    nextButton: false,
-    prevButton: true
-  }
+export default function ReleaseDisplay() {
+  const [releases, setReleases] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [count, setCount] = useState(0);
+  const [nextButton, setNextButton] = useState(false);
+  const [prevButton, setPrevButton] = useState(true);
 
-  componentDidMount() {
-    this.getReleases();
-  }
+  useEffect(() => {
+    getReleases();
+  }, []);
 
-  getReleases = () => {
-    fetchReleases(this.props.match.params.id, this.state.offset)
+  useEffect(() => {
+    getReleases();
+  }, [offset]);
+
+  const { id, name } = useParams();
+
+  const getReleases = () => {
+    fetchReleases(id, offset)
       .then(releases => {
-        this.setState({ releases: releases[1], count: releases[0] });
+        setReleases(releases[1]);
+        setCount(releases[0]);
       });
-  }
+  };
 
-  handleClick = ({ target }) => {
+  const handleClick = ({ target }) => {
     let num;
     target.name === 'next' ? num = 6 : num = -6;
 
-    this.setState(state => {
-      return {
-        offset: state.offset + num,
-        prevButton: false,
-        nextButton: false
-      };
-    }, () => {
+    setOffset(offset + num);
+    setPrevButton(false);
+    setNextButton(false);
 
-      if (this.state.offset + 6 >= this.state.count) {
-        this.setState({ nextButton: true });
-      }
-      if (target.name === 'prev' && this.state.offset === 0) {
-        this.setState({ prevButton: true });
-      }
-    });
-  }
+    if(offset + 5 >= count) setNextButton(true);
+    if(target.name === 'prev' && offset === 0) setPrevButton(true);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.offset !== this.state.offset) {
-      this.getReleases();
-    }
-  }
+  };
 
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
-  }
+  return (
+    <div className={styles.ReleaseDisplay}>
+      <h2>{name}</h2>
+      <button name="prev" disabled={prevButton} onClick={handleClick}>Previous</button>
+      <button name="next" disabled={nextButton} onClick={handleClick}>Next</button>
+      <Releases releases={releases} name={name} />
+    </div>
 
-  render() {
-    return (
-      <div className={styles.ReleaseDisplay}>
-        <h2>{this.props.match.params.name}</h2>
-        <button name="prev" disabled={this.state.prevButton} onClick={this.handleClick}>Previous</button>
-        <button name="next" disabled={this.state.nextButton} onClick={this.handleClick}>Next</button>
-        <Releases releases={this.state.releases} name={this.props.match.params.name} />
-      </div>
+  );
 
-    );
-  }
 }
-
-
