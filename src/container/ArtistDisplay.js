@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Artists from '../components/Artists';
 import Form from '../components/Form';
-import { fetchArtist } from '../services/api-call';
 import styles from './ArtistDisplay.css';
+import { useArtists } from '../hooks/useArtists';
 
 export default function ArtistDisplay () {
-  const [listOfArtists, setListOfArtists] = useState([]);
   const [search, setSearch] = useState('');
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
   const [nextButton, setNextButton] = useState(false);
   const [prevButton, setPrevButton] = useState(true);
+
+  const [listOfArtists, artistAPICall] = useArtists(search, offset, setCount);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,14 +19,6 @@ export default function ArtistDisplay () {
     setPrevButton(true);
     setNextButton(false);
     artistAPICall();
-  }
-
-  const artistAPICall = () => {
-    fetchArtist(search, offset)
-      .then(artists => {
-        setListOfArtists(artists[1]);
-        setCount(artists[0]);
-      });
   }
 
   const handleChange = ({ target }) => {
@@ -44,9 +37,7 @@ export default function ArtistDisplay () {
     if(target.name === 'prev' && offset === 0) setPrevButton(true);
   }
 
-  useEffect(() => {
-    artistAPICall()
-  }, [offset])
+  
 
   return (
     <div className={styles.ArtistDisplay}>

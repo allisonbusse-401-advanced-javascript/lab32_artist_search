@@ -1,33 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchReleases } from '../services/api-call';
+import React, { useState } from 'react';
 import Releases from '../components/Releases';
 import styles from './ReleaseDisplay.css';
+import { useReleases } from '../hooks/useReleases';
 
 export default function ReleaseDisplay() {
-  const [releases, setReleases] = useState([]);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
   const [nextButton, setNextButton] = useState(false);
   const [prevButton, setPrevButton] = useState(true);
 
-  useEffect(() => {
-    getReleases();
-  }, []);
-
-  useEffect(() => {
-    getReleases();
-  }, [offset]);
-
-  const { id, name } = useParams();
-
-  const getReleases = () => {
-    fetchReleases(id, offset)
-      .then(releases => {
-        setReleases(releases[1]);
-        setCount(releases[0]);
-      });
-  };
+  const [releases, name] = useReleases(offset, setCount);
 
   const handleClick = ({ target }) => {
     let num;
