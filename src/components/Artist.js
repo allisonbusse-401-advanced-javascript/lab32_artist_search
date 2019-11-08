@@ -17,7 +17,7 @@ const Artist = ({ id, name, type, gender }) => {
 };
 
 Artist.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   type: PropTypes.string,
   gender: PropTypes.string,
   tags: PropTypes.string,

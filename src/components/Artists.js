@@ -6,6 +6,7 @@ import styles from './Artists.css';
 const Artists = ({ artistArray }) => {
   
   const artists = artistArray.map(artist => {
+    console.log(artist);
     return <Artist
       key={artist.id}
       id={artist.id}
