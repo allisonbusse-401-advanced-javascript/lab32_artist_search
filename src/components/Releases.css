@@ -1,0 +1,7 @@
+.Releases{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  padding-inline-start: 0;
+  width: 85vw;
+}

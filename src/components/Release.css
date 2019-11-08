@@ -1,0 +1,18 @@
+.Release {
+
+  width:27vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5em;
+  text-align: center;
+  
+  div:hover {
+    border-radius: 0.5em;
+    background-color: #6A706E;
+  }
+
+  img {
+    width: 25vw;
+  }
+}

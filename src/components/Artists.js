@@ -8,6 +8,7 @@ const Artists = ({ artistArray }) => {
   const artists = artistArray.map(artist => {
     return <Artist
       key={artist.id}
+      id={artist.id}
       name={artist.name}
       type={artist.type}
       gender={artist.gender}

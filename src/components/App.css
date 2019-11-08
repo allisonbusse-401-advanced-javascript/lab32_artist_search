@@ -8,3 +8,26 @@ body {
 html {
   background-color: #C9EDDC;
 }
+
+a{
+  text-decoration: none;
+  color: #4C3B4D
+}
+
+a:hover{
+  color: #C9EDDC
+}
+
+button {
+  background-color: #4C3B4D;
+  color: #C9EDDC;
+  padding: 0.2em;
+  font-size: 1.1em;
+  margin: 0.2em;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #6A706E;
+  cursor: default;
+}

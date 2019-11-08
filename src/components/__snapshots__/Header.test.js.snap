@@ -4,8 +4,12 @@ exports[`Header component renders Header 1`] = `
 <header
   className="Header"
 >
-  <h1>
-    ARTIST SEARCH
-  </h1>
+  <Link
+    to="/"
+  >
+    <h1>
+      ARTIST SEARCH
+    </h1>
+  </Link>
 </header>
 `;

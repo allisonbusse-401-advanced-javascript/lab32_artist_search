@@ -1,17 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Artist component renders Artist 1`] = `
-<div
-  className="Artist"
+<Link
+  to="/artists/undefined/Tom Petty"
 >
-  <h3>
-    Tom Petty
-  </h3>
-  <p>
-    Type of Act: 
-  </p>
-  <p>
-    Gender: 
-  </p>
-</div>
+  <div
+    className="Artist"
+  >
+    <h3>
+      Tom Petty
+    </h3>
+    <p>
+      Type of Act: 
+    </p>
+    <p>
+      Gender: 
+    </p>
+  </div>
+</Link>
 `;

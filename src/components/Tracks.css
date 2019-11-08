@@ -1,0 +1,12 @@
+.Tracks {
+  margin-left: 10vw;
+  font-size: 1.3em;
+  list-style: none;
+  li {
+    width: 30vw;
+    padding: 0.1em;
+  }
+  li:hover {
+    background-color: #89B6A5;
+  }
+}

@@ -8,7 +8,7 @@ describe('ArtistDisplay component', () => {
   it('renders ArtistDisplay', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  it('should submit', () => {
+  it.skip('should submit', () => {
     wrapper.findWhere(button => button.name() === 'prev').simulate('click');
     expect(handleClick).toHaveBeenCalled();
   });
