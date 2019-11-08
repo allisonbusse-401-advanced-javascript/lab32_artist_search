@@ -21,7 +21,7 @@ Artist.propTypes = {
   type: PropTypes.string,
   gender: PropTypes.string,
   tags: PropTypes.string,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string
 };
 
 export default Artist;
