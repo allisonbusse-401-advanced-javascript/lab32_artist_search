@@ -1,43 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Artists from '../components/Artists';
 import Form from '../components/Form';
 import styles from './ArtistDisplay.css';
 import { useArtists } from '../hooks/useArtists';
+import { usePaging } from '../hooks/usePaging';
+import { fetchArtist } from '../services/api-call';
 
-export default function ArtistDisplay () {
-  const [search, setSearch] = useState('');
-  const [offset, setOffset] = useState(0);
-  const [count, setCount] = useState(0);
-  const [nextButton, setNextButton] = useState(false);
-  const [prevButton, setPrevButton] = useState(true);
 
-  const [listOfArtists, artistAPICall] = useArtists(search, offset, setCount);
+export default function ArtistDisplay() {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setOffset(0);
-    setPrevButton(true);
-    setNextButton(false);
-    artistAPICall();
-  }
+  const artistAPICall = () => {
+    fetchArtist(search, offset)
+      .then(artists => {
+        setListOfArtists(artists[1]);
+        setCount(artists[0]);
+      });
+  };
 
-  const handleChange = ({ target }) => {
-    setSearch(target.value);
-  }
+  const { search, offset, setCount, nextButton, prevButton, handleSubmit, handleChange, handleClick } = usePaging(artistAPICall, 5);
+  const [listOfArtists, setListOfArtists] = useArtists(search, offset, setCount, artistAPICall);
 
-  const handleClick = ({ target }) => {
-    let num;
-    target.name === 'next' ? num = 5 : num = -5;
-
-    setOffset(offset + num);
-    setPrevButton(false);
-    setNextButton(false);
-
-    if(offset + 5 >= count) setNextButton(true);
-    if(target.name === 'prev' && offset === 0) setPrevButton(true);
-  }
-
-  
 
   return (
     <div className={styles.ArtistDisplay}>

@@ -1,28 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Releases from '../components/Releases';
 import styles from './ReleaseDisplay.css';
 import { useReleases } from '../hooks/useReleases';
+import { usePaging } from '../hooks/usePaging';
 
 export default function ReleaseDisplay() {
-  const [offset, setOffset] = useState(0);
-  const [count, setCount] = useState(0);
-  const [nextButton, setNextButton] = useState(false);
-  const [prevButton, setPrevButton] = useState(true);
 
+  const { offset, setCount, nextButton, prevButton, handleClick } = usePaging(null, 6);
   const [releases, name] = useReleases(offset, setCount);
-
-  const handleClick = ({ target }) => {
-    let num;
-    target.name === 'next' ? num = 6 : num = -6;
-
-    setOffset(offset + num);
-    setPrevButton(false);
-    setNextButton(false);
-
-    if(offset + 5 >= count) setNextButton(true);
-    if(target.name === 'prev' && offset === 0) setPrevButton(true);
-
-  };
 
   return (
     <div className={styles.ReleaseDisplay}>
