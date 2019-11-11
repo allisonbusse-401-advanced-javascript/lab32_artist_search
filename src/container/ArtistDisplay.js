@@ -23,7 +23,7 @@ function reducer(state, action) {
     case 'apiCall':
       return { ...state, count: action.payload[0], listOfArtists: action.payload[1] };
     case 'search':
-      return { ...state, search: action.payload}
+      return { ...state, search: action.payload };
     default:
       throw new Error();
   }
