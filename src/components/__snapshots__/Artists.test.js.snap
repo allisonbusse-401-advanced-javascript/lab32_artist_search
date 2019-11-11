@@ -5,9 +5,11 @@ exports[`Artists component renders Artists 1`] = `
   className="Artists"
 >
   <Artist
+    id="Tom Petty"
     key="Tom Petty"
   />
   <Artist
+    id="Frank Zappa"
     key="Frank Zappa"
   />
 </ul>
